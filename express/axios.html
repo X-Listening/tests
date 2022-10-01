@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>使用axios请求</title>
+    <script
+      crossorigin="anonymous"
+      src="https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.min.js"
+    ></script>
+  </head>
+  <body>
+    <button>get</button>
+    <button>post</button>
+    <button>通用</button>
+    <script>
+      const btns = document.querySelectorAll("button");
+
+      // 配置baseURL
+      axios.defaults.baseURL = "http://localhost:8000";
+
+      btns[0].onclick = function () {
+        axios
+          .get("/axios-server", {
+            // url参数
+            params: {
+              a: 100,
+              b: 200,
+            },
+            // 请求头-
+            headers: {
+              name: "axios",
+              teach: "qianduan",
+            },
+          })
+          .then((value) => {
+            console.log(value);
+          });
+      };
+
+      btns[1].onclick = function () {
+        axios
+          .post(
+            "/axios-server",
+            {
+              username: "admin",
+              password: "admin",
+            },
+            {
+              params: {
+                a: 100,
+                b: 200,
+              },
+              // 请求头
+              headers: {
+                name: "axios2",
+                teach: "qianduan2",
+              },
+            }
+          )
+          .then((value) => {
+            console.log(value);
+          });
+      };
+      btns[2].onclick = function () {
+        axios({
+          url: "/axios-server",
+          method: "post",
+          params: {
+            a: 100,
+            b: 200,
+          },
+          headers: {
+            name: "axios3",
+            teach: "qianduan3",
+          },
+          data: {
+            username: "admin3",
+            password: "admin3",
+          },
+        }).then((value) => {
+          console.log(value);
+        });
+      };
+    </script>
+  </body>
+</html>

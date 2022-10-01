@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>使用get方法请求json数据</title>
+  </head>
+  <body>
+    <button>点击发送请求</button>
+    <div
+      id="result"
+      style="width: 200px; height: 200px; border: solid 1px #ddd"
+    ></div>
+    <script>
+      //获取元素
+      const btn = document.getElementsByTagName("button")[0];
+
+      const result = document.getElementById("result");
+      //绑定事件
+      btn.addEventListener("click", function () {
+        // 1.创建XMLHttpRequest
+        const xhr = new XMLHttpRequest();
+        // 设置响应体数据类型
+        xhr.responseType = "json";
+        // 2.初始化
+        xhr.open("get", "http://localhost:8000/json-server");
+        // 3.发送数据
+        xhr.send();
+        // 4.事件绑定 处理服务器返回的结果
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              // console.log(xhr.response);
+              // 手动转换数据类型
+              // let data = JSON.parse(xhr.response);
+              // console.log(data);
+              // result.innerHTML = data.name;
+              result.innerHTML = xhr.response.name;
+            } else {
+              console.log(xhr.status);
+            }
+          }
+        };
+      });
+    </script>
+  </body>
+</html>
